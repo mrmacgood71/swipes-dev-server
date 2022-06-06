@@ -42,9 +42,9 @@ public class FilesController {
     @GetMapping
     public List<String> getTestImage() {
 
-        if (true) {
-
-        } else {
+//        if (true) {
+//
+//        } else {
             S3Object img = s3.getObject(new GetObjectRequest(BUCKET_NAME, "Q.png"));
 
             S3ObjectInputStream s3Stream = img.getObjectContent();
@@ -66,7 +66,7 @@ public class FilesController {
             } catch (IOException e) {
                 e.printStackTrace();
             }
-        }
+//        }
 
         return List.of(
                 "code: 200",
@@ -77,9 +77,9 @@ public class FilesController {
     @GetMapping("/send")
     public List<String> uploadFile() {
 
-        if (true) {
-
-        } else {
+//        if (true) {
+//
+//        } else {
             PutObjectRequest request = new PutObjectRequest(BUCKET_NAME, "text.txt", new File("text.txt"));
 
             ObjectMetadata metadata = new ObjectMetadata();
@@ -87,7 +87,7 @@ public class FilesController {
             metadata.addUserMetadata("title", "someTitle");
             request.setMetadata(metadata);
             s3.putObject(request);
-        }
+//        }
 
         return List.of(
                 "code: 200",
