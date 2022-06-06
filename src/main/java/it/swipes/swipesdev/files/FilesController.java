@@ -14,6 +14,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/v0/file")
@@ -39,43 +40,58 @@ public class FilesController {
     }
 
     @GetMapping
-    public String getTestImage() {
+    public List<String> getTestImage() {
 
-        S3Object img = s3.getObject(new GetObjectRequest(BUCKET_NAME, "Q.png"));
+        if (true) {
 
-        S3ObjectInputStream s3Stream = img.getObjectContent();
-        try {
-            FileOutputStream fos = new FileOutputStream(new File("Q.png"));
+        } else {
+            S3Object img = s3.getObject(new GetObjectRequest(BUCKET_NAME, "Q.png"));
 
-            byte[] readBuf = new byte[1024];
-            int readLength = 0;
+            S3ObjectInputStream s3Stream = img.getObjectContent();
 
-            while ((readLength = s3Stream.read(readBuf)) > 0) {
-                fos.write(readBuf, 0, readLength);
+            try {
+                FileOutputStream fos = new FileOutputStream(new File("Q.png"));
+
+                byte[] readBuf = new byte[1024];
+                int readLength = 0;
+
+                while ((readLength = s3Stream.read(readBuf)) > 0) {
+                    fos.write(readBuf, 0, readLength);
+                }
+
+                s3Stream.close();
+                fos.close();
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
             }
-
-            s3Stream.close();
-            fos.close();
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
         }
 
-        return "successful";
+        return List.of(
+                "code: 200",
+                "state: successful"
+        );
     }
 
     @GetMapping("/send")
-    public String uploadFile() {
+    public List<String> uploadFile() {
 
-        PutObjectRequest request = new PutObjectRequest(BUCKET_NAME, "text.txt", new File("text.txt"));
+        if (true) {
 
-        ObjectMetadata metadata = new ObjectMetadata();
-        metadata.setContentType("plain/text");
-        metadata.addUserMetadata("title", "someTitle");
-        request.setMetadata(metadata);
-        s3.putObject(request);
+        } else {
+            PutObjectRequest request = new PutObjectRequest(BUCKET_NAME, "text.txt", new File("text.txt"));
 
-        return "successful";
+            ObjectMetadata metadata = new ObjectMetadata();
+            metadata.setContentType("plain/text");
+            metadata.addUserMetadata("title", "someTitle");
+            request.setMetadata(metadata);
+            s3.putObject(request);
+        }
+
+        return List.of(
+                "code: 200",
+                "state: successful"
+        );
     }
 }

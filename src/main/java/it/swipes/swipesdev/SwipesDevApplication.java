@@ -31,9 +31,13 @@ public class SwipesDevApplication {
 
 @RestController
 class IndexController {
-    @GetMapping("/")
-    public String index() {
 
-        return "welcome";
+    @GetMapping("/")
+    public List<String> index() {
+
+        return List.of(
+                "info: welcome",
+                "page: index"
+        );
     }
 }
