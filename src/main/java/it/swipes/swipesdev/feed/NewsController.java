@@ -36,7 +36,7 @@ public class NewsController {
     public String unlike(
             @PathVariable final String id
     ) {
-        return Integer.toString(likes--);
+        return Integer.toString(--likes);
     }
 
     @GetMapping("{id}/comments")
