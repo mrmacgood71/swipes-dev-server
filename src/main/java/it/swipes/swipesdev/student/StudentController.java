@@ -1,5 +1,11 @@
 package it.swipes.swipesdev.student;
 
+import com.amazonaws.auth.AWSCredentials;
+import com.amazonaws.auth.AWSStaticCredentialsProvider;
+import com.amazonaws.auth.AnonymousAWSCredentials;
+import com.amazonaws.auth.profile.ProfileCredentialsProvider;
+import com.amazonaws.services.s3.AmazonS3;
+import com.amazonaws.services.s3.AmazonS3ClientBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -10,6 +16,8 @@ import java.util.List;
 @RestController
 @RequestMapping(path = "api/v0/student")
 public class StudentController {
+
+
 
     private final StudentService studentService;
 
@@ -35,6 +43,7 @@ public class StudentController {
             @RequestParam(required = false) final String email
     ) {
         studentService.update(id, name, email);
+
     }
 
     @DeleteMapping ("{id}")
