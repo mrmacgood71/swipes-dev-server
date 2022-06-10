@@ -10,6 +10,8 @@ import com.amazonaws.services.s3.model.*;
 import it.swipes.swipesdev.student.Student;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -29,15 +31,11 @@ public class SwipesDevApplication {
     }
 }
 
-@RestController
+@Controller
 class IndexController {
 
     @GetMapping("/")
-    public List<String> index() {
-
-        return List.of(
-                "info: welcome",
-                "page: index"
-        );
+    public String index(final Model model) {
+        return "index";
     }
 }

@@ -1,15 +1,22 @@
 package it.swipes.swipesdev.feed;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import it.swipes.swipesdev.post.Post;
+
+import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table
 public class News {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+
+    @OneToMany
+    private List<Post> posts;
+
+
 
     public News() {
     }

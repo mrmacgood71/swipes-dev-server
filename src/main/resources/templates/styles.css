@@ -1,0 +1,218 @@
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Montserrat:wght@600&display=swap');
+
+*{
+    letter-spacing: 3px;
+    margin: 0;
+    padding: 0;
+    font-family: 'Century Gothic';
+}
+
+html, body{
+    width: 100%;
+    height: 100%;
+    position: relative;
+}
+
+.main{
+    width: 100%;
+    height: 100%;
+}
+
+.main__header{
+    width: 100%;
+    height: 100px;
+    display: flex;
+}
+
+.header_left{
+    width: 50%;
+    height: 100%;
+    background-color: f;
+}
+
+.header_right{
+    width: 50%;
+    height: 100%;
+    background-color: white;
+}
+
+.main__container{
+    width: 100%;
+    height: calc(100% - 100px);
+    display: flex;
+}
+
+.container__left{
+    height: calc(100% + 100px);
+    width: 50%;
+    background-color: black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    margin-top: -100px;
+}
+
+
+.header_logo-right{
+    height: 100px;
+    width: 100px;
+    background-color: red;
+    margin-right: 0;
+    margin-left: auto;
+
+}
+.text_about_big{
+    color: white;
+    font-size: 48pt;
+    width: 80%;
+
+}
+
+.text_about_small{
+    color: lightgray;
+    font-size: 28pt;
+    width: 80%;
+
+}
+.buttons_download{
+    display: flex;
+    justify-content: left;
+    align-items: left;
+    flex-direction: column;
+}
+.buttons_download > *{
+    height: 100px;
+    width: 500px;
+    background-color: black;
+    border-radius: 90px;
+    margin-top: 15px;
+    margin-bottom: 15px;
+    transition: 0.5s;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.buttons_download > *:hover{
+    cursor: pointer;
+    background-color: rgb(5, 5, 5);
+    box-shadow: 0px 0px 55px black;
+}
+.container__right{
+    margin-top: -100px;
+    width: 50%;
+    height: calc(100% + 100px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 24px;
+    flex-direction: column;
+}
+
+.logo-left{
+    height: 300px;
+    width: 300px;
+    background: url("img/logo_white_big.png") no-repeat;
+    background-size: contain;
+    background-position: center;
+    border-radius: 0;
+    position: center;
+}
+
+.logo-right{
+    height: 200px;
+    width: 700px;
+    background: url("img/logo_word.png") no-repeat;
+    background-size: contain;
+    background-position: center;
+    border-radius: 0;
+    position: center;
+}
+
+.button_cont, .button_about, .button_main{
+    height: 100px;
+    width: 250px;
+    z-index: 2;
+    display: flex;
+    background-position: center;
+    background-size: contain;
+    justify-content: center;
+    align-items: center;
+    background-size: 200%;
+}
+
+.word{
+    color: white;
+}
+.word2{
+    color: black;
+}
+.button_cont:hover {
+    cursor: pointer;
+    background: linear-gradient(to right, white 50%, black 50%);
+}
+.button_cont:hover > .word{
+    color: black
+}
+.button_cont:hover > .word2{
+    color: white
+}
+
+.button_about:hover{
+    cursor: pointer;
+    background-color: black;
+}
+.button_about:hover > .word2{
+    color: white
+}
+.image_down{
+    height: 100%;
+    width: 100px;
+    background: url("img/logo_white.png") no-repeat;
+    background-size: contain;  
+}
+.text{
+    color: black
+}
+
+.main__header > *{
+    letter-spacing: 3px;
+    font-size: 20pt;
+}
+.gsIMG{
+    background: url("img/gsicon.png") no-repeat;
+}
+
+.appIMG{
+    background: url("img/appleicon.png") no-repeat;
+}
+.dldIMG{
+    background: url("img/dwld.png") no-repeat;
+}
+.appIMG, .gsIMG, .dldIMG{
+    width: 50px;
+    height: 50px;
+    background-position: center;
+    background-size: contain;
+    margin-right: 10px;
+}
+.flex{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+span{
+    color: gray
+}
+.button_main:hover{
+    background-color: white;
+    color: black;
+    cursor: pointer;
+}
+
+.button_main:hover > *{
+    color: black;
+    cursor: pointer;
+}

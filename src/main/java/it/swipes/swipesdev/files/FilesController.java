@@ -6,10 +6,17 @@ import com.amazonaws.auth.EnvironmentVariableCredentialsProvider;
 import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.AmazonS3ClientBuilder;
 import com.amazonaws.services.s3.model.*;
+import com.amazonaws.util.IOUtils;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.view.RedirectView;
 
+import javax.servlet.http.HttpServletResponse;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -39,10 +46,15 @@ public class FilesController {
                 .build();
     }
 
-    @GetMapping
-    public List<String> getTestImage() {
+    @GetMapping(
+            produces = MediaType.IMAGE_JPEG_VALUE
+    )
+    public ResponseEntity getTestImage() {
+
+        byte[] readBuf = new byte[1024];
 
         if (true) {
+
 
         } else {
             S3Object img = s3.getObject(new GetObjectRequest(BUCKET_NAME, "Q.png"));
@@ -50,17 +62,24 @@ public class FilesController {
             S3ObjectInputStream s3Stream = img.getObjectContent();
 
             try {
-                FileOutputStream fos = new FileOutputStream(new File("Q.png"));
+                File file = new File("Q.png");
+                FileOutputStream fos = new FileOutputStream(file);
 
-                byte[] readBuf = new byte[1024];
                 int readLength = 0;
 
                 while ((readLength = s3Stream.read(readBuf)) > 0) {
                     fos.write(readBuf, 0, readLength);
                 }
 
+
                 s3Stream.close();
                 fos.close();
+
+                return ResponseEntity
+                        .ok()
+                        .header(HttpHeaders.CONTENT_DISPOSITION,  "attachment;filename=" + file.getName())
+                        .contentType(MediaType.IMAGE_PNG)
+                        .build();
             } catch (FileNotFoundException e) {
                 e.printStackTrace();
             } catch (IOException e) {
@@ -68,10 +87,7 @@ public class FilesController {
             }
         }
 
-        return List.of(
-                "code: 200",
-                "state: successful"
-        );
+        return null;
     }
 
     @GetMapping("/send")
@@ -93,5 +109,11 @@ public class FilesController {
                 "code: 200",
                 "state: successful"
         );
+    }
+
+    @GetMapping("/download")
+    public void download(HttpServletResponse response) throws IOException {
+        response.sendRedirect("https://vk.com/macgoodmonsta");
+
     }
 }

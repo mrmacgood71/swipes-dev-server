@@ -1,7 +1,7 @@
 package it.swipes.swipesdev.feed;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import it.swipes.swipesdev.comment.Comment;
+import it.swipes.swipesdev.profile.Profile;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -44,8 +44,8 @@ public class NewsController {
             @PathVariable final String id
     ) {
         return List.of(
-                new Comment(3L),
-                new Comment(4L)
+                new Comment("text 1", new Profile(""+1)),
+                new Comment("text 1", new Profile(""+2))
         );
     }
 
