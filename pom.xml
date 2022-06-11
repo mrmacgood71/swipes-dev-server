@@ -10,7 +10,7 @@
     </parent>
     <groupId>it.swipes</groupId>
     <artifactId>SwipesDev</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>0.1.0-M3</version>
     <name>SwipesDev</name>
     <description>SwipesDev</description>
     <properties>

@@ -31,6 +31,20 @@ public class ProfileController {
         return null;
     }
 
+    @PostMapping("/profile")
+    public String save(
+            @RequestBody Profile profile
+    ) {
+
+        if (profile == null) {
+            throw new IllegalStateException("Bad Request: Profile is null");
+        }
+
+        profileService.save(profile);
+
+        return "ok";
+    }
+
     @GetMapping("/edit/{id}")
     public Profile getProfileForEdit(
             @PathVariable final String id
