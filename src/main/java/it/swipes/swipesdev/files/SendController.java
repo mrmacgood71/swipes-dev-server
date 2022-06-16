@@ -6,15 +6,12 @@ import com.amazonaws.auth.EnvironmentVariableCredentialsProvider;
 import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.AmazonS3ClientBuilder;
 import com.amazonaws.services.s3.model.*;
-import com.amazonaws.util.IOUtils;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.servlet.view.RedirectView;
 
 import javax.servlet.http.HttpServletResponse;
 import java.io.File;
@@ -24,8 +21,8 @@ import java.io.IOException;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/v0/file")
-public class FilesController {
+@RequestMapping("/api/v0/send")
+public class SendController {
 
     private static final String BUCKET_NAME = "swipes-storage";
     private static final String SERVICE_ENDPOINT = "storage.yandexcloud.net";
@@ -35,7 +32,7 @@ public class FilesController {
 
     AmazonS3 s3 = null;
 
-    public FilesController() {
+    public SendController() {
         credentials = new EnvironmentVariableCredentialsProvider().getCredentials();
 
         s3 = AmazonS3ClientBuilder.standard()
@@ -57,6 +54,8 @@ public class FilesController {
 
 
         } else {
+
+
             S3Object img = s3.getObject(new GetObjectRequest(BUCKET_NAME, "Q.png"));
 
             S3ObjectInputStream s3Stream = img.getObjectContent();
@@ -90,10 +89,10 @@ public class FilesController {
         return null;
     }
 
-    @GetMapping("/send")
+    @GetMapping("/test")
     public List<String> uploadFile() {
 
-        if (true) {
+        if (false) {
 
         } else {
             PutObjectRequest request = new PutObjectRequest(BUCKET_NAME, "text.txt", new File("text.txt"));
@@ -113,7 +112,7 @@ public class FilesController {
 
     @GetMapping("/download")
     public void download(HttpServletResponse response) throws IOException {
-        response.sendRedirect("https://vk.com/macgoodmonsta");
+        response.sendRedirect("https://storage.yandexcloud.net/swipes-storage/Q.png");
 
     }
 }

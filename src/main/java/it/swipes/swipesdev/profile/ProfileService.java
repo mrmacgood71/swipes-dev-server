@@ -26,6 +26,10 @@ public class ProfileService {
     }
 
     public void save(Profile profile) {
+
+        if (profile == null) {
+            throw new IllegalStateException("Bad Request: Profile is null");
+        }
         profileRepository.save(profile);
     }
 }

@@ -14,22 +14,22 @@ public class Publisher {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @JsonView(View.ShortPublisherInfo.class)
+    @JsonView({View.ShortPostInfo.class, View.ShortPublisherInfo.class})
     private Long id;
 
-    @JsonView(View.ShortPublisherInfo.class)
+    @JsonView({View.ShortPostInfo.class, View.ShortPublisherInfo.class})
     private String name;
 
-    @JsonView(View.ShortPublisherInfo.class)
+    @JsonView({View.ShortPostInfo.class, View.ShortPublisherInfo.class})
     private String description;
 
     //profile picture
-    @JsonView(View.ShortPublisherInfo.class)
+    @JsonView({View.ShortPostInfo.class, View.ShortPublisherInfo.class})
     private String profilePic;
 
     @ManyToOne
     @JoinColumn(name = "user_id")
-    @JsonView(View.FullPublisherInfo.class)
+    @JsonView({View.ShortPostInfo.class, View.ShortPublisherInfo.class})
     private Profile author;
 
     @OneToMany

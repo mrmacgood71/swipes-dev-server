@@ -1,5 +1,8 @@
 package it.swipes.swipesdev.profile;
 
+import com.fasterxml.jackson.annotation.JsonView;
+import it.swipes.swipesdev.config.View;
+
 import javax.persistence.*;
 import java.time.LocalDateTime;
 
@@ -8,9 +11,12 @@ import java.time.LocalDateTime;
 public class Profile {
 
     @Id
+    @JsonView({View.ShortPostInfo.class, View.ShortPublisherInfo.class})
     private String id;
     private String description;
+    @JsonView({View.ShortPostInfo.class, View.ShortPublisherInfo.class})
     private String name;
+    @JsonView({View.ShortPostInfo.class, View.ShortPublisherInfo.class})
     private String picture;
     private String email;
     private String locale;

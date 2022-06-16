@@ -44,8 +44,8 @@ public class NewsController {
             @PathVariable final String id
     ) {
         return List.of(
-                new Comment("text 1", new Profile(""+1)),
-                new Comment("text 1", new Profile(""+2))
+                new Comment("text 1", new Profile("" + 1)),
+                new Comment("text 1", new Profile("" + 2))
         );
     }
 

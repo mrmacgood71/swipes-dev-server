@@ -1,20 +1,33 @@
 package it.swipes.swipesdev.post;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import com.fasterxml.jackson.annotation.JsonView;
+import it.swipes.swipesdev.config.View;
+import it.swipes.swipesdev.publisher.Publisher;
+
+import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table
 public class Post {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @JsonView({View.FullPublisherInfo.class, View.ShortPostInfo.class})
     private Long id;
-    private String image;
-    private Long authorId;
-    private Long likes;
-    private Long commentsCount;
 
+    @OneToMany
+    @JsonView({View.FullPublisherInfo.class, View.ShortPostInfo.class})
+    private List<PhotoUrl> image;
+
+    @ManyToOne
+    @JoinColumn(name = "publisher_id")
+    @JsonView(View.ShortPostInfo.class)
+    private Publisher author;
+    @JsonView({View.FullPublisherInfo.class, View.ShortPostInfo.class})
+    private Long likes;
+    @JsonView({View.FullPublisherInfo.class, View.ShortPostInfo.class})
+    private Long commentsCount;
 
     public Post() {
     }
@@ -23,10 +36,10 @@ public class Post {
         this.id = id;
     }
 
-    public Post(Long id, String image, Long authorId, Long likes, Long commentsCount) {
+    public Post(Long id, List<PhotoUrl> image, Publisher author, Long likes, Long commentsCount) {
         this.id = id;
         this.image = image;
-        this.authorId = authorId;
+        this.author = author;
         this.likes = likes;
         this.commentsCount = commentsCount;
     }
@@ -39,20 +52,20 @@ public class Post {
         this.id = id;
     }
 
-    public String getImage() {
+    public List<PhotoUrl> getImage() {
         return image;
     }
 
-    public void setImage(String image) {
+    public void setImage(List<PhotoUrl> image) {
         this.image = image;
     }
 
-    public Long getAuthorId() {
-        return authorId;
+    public Publisher getAuthor() {
+        return author;
     }
 
-    public void setAuthorId(Long authorId) {
-        this.authorId = authorId;
+    public void setAuthor(Publisher authorId) {
+        this.author = authorId;
     }
 
     public Long getLikes() {
