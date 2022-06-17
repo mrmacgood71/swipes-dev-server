@@ -3,21 +3,24 @@ package it.swipes.swipesdev.post;
 import com.fasterxml.jackson.annotation.JsonView;
 import it.swipes.swipesdev.config.View;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity
 @Table
 public class PhotoUrl {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @JsonView({View.ShortPostInfo.class, View.ShortPublisherInfo.class})
     private Long id;
     @JsonView({View.ShortPostInfo.class, View.ShortPublisherInfo.class})
     private String url;
 
     public PhotoUrl() {
+    }
+
+    public PhotoUrl(String url) {
+        this.url = url;
     }
 
     public PhotoUrl(Long id, String url) {

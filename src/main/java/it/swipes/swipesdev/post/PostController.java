@@ -26,6 +26,7 @@ public class PostController {
     }
 
     @PostMapping
+    @JsonView(View.ShortPostInfo.class)
     public void save(
             @RequestBody final Post post
     ) {

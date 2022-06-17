@@ -6,12 +6,13 @@ import com.amazonaws.auth.EnvironmentVariableCredentialsProvider;
 import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.AmazonS3ClientBuilder;
 import com.amazonaws.services.s3.model.*;
+import it.swipes.swipesdev.post.PhotoRepository;
+import it.swipes.swipesdev.post.PhotoUrl;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
 import java.io.File;
@@ -26,13 +27,18 @@ public class SendController {
 
     private static final String BUCKET_NAME = "swipes-storage";
     private static final String SERVICE_ENDPOINT = "storage.yandexcloud.net";
+    private static final String FULL_LINK = "https://storage.yandexcloud.net/swipes-storage/";
     private static final String REGION = "ru-central1";
 
     AWSCredentials credentials = null;
 
     AmazonS3 s3 = null;
 
-    public SendController() {
+
+    private final PhotoRepository repository;
+
+    @Autowired
+    public SendController(PhotoRepository repository) {
         credentials = new EnvironmentVariableCredentialsProvider().getCredentials();
 
         s3 = AmazonS3ClientBuilder.standard()
@@ -41,6 +47,8 @@ public class SendController {
                         new AmazonS3ClientBuilder.EndpointConfiguration(SERVICE_ENDPOINT, REGION)
                 )
                 .build();
+
+        this.repository = repository;
     }
 
     @GetMapping(
@@ -89,19 +97,26 @@ public class SendController {
         return null;
     }
 
-    @GetMapping("/test")
-    public List<String> uploadFile() {
+    @PostMapping()
+    public List<String> uploadFile(
+            @RequestParam String name,
+            @RequestBody File file
+    ) {
 
         if (false) {
 
         } else {
-            PutObjectRequest request = new PutObjectRequest(BUCKET_NAME, "text.txt", new File("text.txt"));
+            PutObjectRequest request = new PutObjectRequest(BUCKET_NAME, name, file);
 
             ObjectMetadata metadata = new ObjectMetadata();
-            metadata.setContentType("plain/text");
+            metadata.setContentType("image/");
             metadata.addUserMetadata("title", "someTitle");
             request.setMetadata(metadata);
             s3.putObject(request);
+
+            repository.save(new PhotoUrl(FULL_LINK + name));
+
+
         }
 
         return List.of(
