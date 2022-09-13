@@ -17,8 +17,6 @@ import java.util.List;
 @RequestMapping(path = "api/v0/student")
 public class StudentController {
 
-
-
     private final StudentService studentService;
 
     @Autowired
